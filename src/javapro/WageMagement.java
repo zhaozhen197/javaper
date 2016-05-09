@@ -8,16 +8,13 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import javax.swing.table.*;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -222,57 +219,7 @@ public class WageMagement extends JFrame implements ActionListener {
         }
         }
 
-/*        if (b4.equals(e.getSource())) {// 查询全部
-            Connection con;
-            Statement sql;
-            ResultSet rs;
-            //Vector vector = new Vector();
-            try {
-                Class.forName("org.gjt.mm.mysql.Driver");
-            } catch (ClassNotFoundException e1) {
-                JOptionPane.showMessageDialog(this, "连接数据库失败！");
-            }
-            try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/wage management","root","jxb");
-                sql = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
-                        ResultSet.CONCUR_READ_ONLY);
-                if (b4.equals(e.getSource())) {
 
-                    for (int i = 0; i < 50; i++)
-                        for (int j = 0; j < 4; j++)
-                            table.setValueAt("", i, j);
-                    rs = sql.executeQuery("select distinct * from  wageinfo ,welfare  where   wageinfo.name=welfare.name");
-                    int k = -1;
-                    while (rs.next()) {
-
-                        ++k;
-                        String no = rs.getString(1);
-                        String name = rs.getString(2);
-                        String jb = rs.getString(3);
-                        String jt = rs.getString(6);
-                        int  sum=	rs.getInt(3)+rs.getInt(6);
-
-
-                        table.setValueAt(no, k, 0);
-                        table.setValueAt(name, k, 1);
-                        table.setValueAt(jb, k, 3);
-                        table.setValueAt(jt, k, 2);
-                        table.setValueAt(sum,k,4);
-
-                    }
-                }
-            } catch (SQLException e1) {
-                JOptionPane.showMessageDialog(this, "查询失败！");
-            }
-        }*/
-
-/*        if (b5.equals(e.getSource())) {// 返回
-            GZGLZJM gl=new GZGLZJM();
-            gl.create();
-
-            dispose();
-
-        }*/
     }
 
 
