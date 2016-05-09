@@ -31,6 +31,7 @@ public class WageMagement extends JFrame implements ActionListener {
 
     void create() {
         String[] cloum = { "职工号", "姓名", "月基本工资","工作提成","将金","总计"};//表格标题
+
         Object[][] row = new Object[50][6];
         JTable table = new JTable(row, cloum);
         JScrollPane scrollpane = new JScrollPane(table);//添加滚动条
@@ -63,9 +64,14 @@ public class WageMagement extends JFrame implements ActionListener {
         setResizable(true);// 可以调整界面大小
         setVisible(true);
     }
-    public  void receive(Object[][] a,String[] col)
+    public  void receive(salaryinformation SI)
     {
+        String [] col = new String[]{"职工号", "姓名", "月基本工资", "工作提成","津贴", "总计"};//表格标题
+        Object[][] a ={
+                {SI.getNum(), SI.getName(), SI.getBasesalary(), SI.getJobsalary(), SI.getWelfare(), SI.getTotal()}
+        };
         JTable table = new JTable(a,col);
+
         JScrollPane scrollpane = new JScrollPane(table);//添加滚动条
         JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         JPanel p = (JPanel)getContentPane();
@@ -99,7 +105,7 @@ public class WageMagement extends JFrame implements ActionListener {
 
     public   static  void main(String[] art)
     {
-        new WageMagement().create();
+        new WageMagement();
     }
     public void actionPerformed(ActionEvent e) {
         if (b1.equals(e.getSource())) { // 录入

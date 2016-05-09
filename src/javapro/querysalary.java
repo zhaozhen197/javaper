@@ -96,6 +96,7 @@ public querysalary()
             if (num_jtf.getText() != null) {
                 Connection conn = null;
                 String num;
+                salaryinformation SI = new salaryinformation();
 
                 try {
                     conn = new mysqlConnection().mysqlconnecion();
@@ -113,32 +114,37 @@ public querysalary()
                 }
                 try {
                     rs = stmt.executeQuery(sql);
+
+
                 } catch (SQLException e1) {
+                    warn_lab.setText("该员工不存在");
                     e1.printStackTrace();
                 }
                 try {
                     while (rs.next()) {
-                        salaryinformation SI = new salaryinformation();
-                        SI.setNum(rs.getString("id"));
-                        SI.setName(rs.getString("name"));
-                        SI.setBasesalary(rs.getFloat("basesalary"));
-                        SI.setJobsalary(rs.getFloat("jobsalary"));
-                        SI.setWelfare(rs.getFloat("welfare"));
-                        SI.setTotal(rs.getFloat("total"));
-                        Object[][] a ={
-                                {SI.getNum(), SI.getName(), SI.getBasesalary(), SI.getJobsalary(), SI.getWelfare(), SI.getTotal()}
-                        };
-                        String[] cloum = {"职工号", "姓名", "月基本工资", "津贴", "总计"};//表格标题
-                        new WageMagement().receive(a,cloum);
-                        System.out.print("ajodifaoioiajdio");
-                        this.dispose();
+
+                        SI.setNum(rs.getString(1));
+
+                        SI.setName(rs.getString(2));
+                        SI.setBasesalary(rs.getFloat(3));
+                        SI.setJobsalary(rs.getFloat(4));
+                        SI.setWelfare(rs.getFloat(5));
+                        SI.setTotal(rs.getFloat(6));
+
                     }
-
-
-
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+                new WageMagement().receive(SI);
+                try {
+                    rs.close();
+                    conn.close();
+                    stmt.close();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+                this.dispose();
             } else {
                 warn_lab.setText("用户名为空");
             }
@@ -147,6 +153,6 @@ public querysalary()
     }
     public  static  void  main(String [] arg)
     {
-    new deleteWage();
+        new querysalary();
     }
 }
