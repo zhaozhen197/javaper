@@ -124,7 +124,6 @@ public querysalary()
                     while (rs.next()) {
 
                         SI.setNum(rs.getString(1));
-
                         SI.setName(rs.getString(2));
                         SI.setBasesalary(rs.getFloat(3));
                         SI.setJobsalary(rs.getFloat(4));
