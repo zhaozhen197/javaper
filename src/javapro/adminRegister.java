@@ -28,7 +28,6 @@ public class adminRegister extends JFrame implements ActionListener {
     private JLabel explain;
     private JRadioButton madmin_JRB;
     private JRadioButton staff_JRB;
-    private JTextArea info_ta;
     private JTextField name_jf;
     private JPasswordField password_jtf;
     private JPasswordField rePassword_jtf;
@@ -118,14 +117,6 @@ public class adminRegister extends JFrame implements ActionListener {
         return rePassword_jtf;
     }
 
-
-    private JTextArea getInfo_ta() {
-        if (info_ta == null) {
-            info_ta = new JTextArea();
-            info_ta.setText("");
-        }
-        return info_ta;
-    }
 
 
     private JRadioButton getStaff_JRB() {
