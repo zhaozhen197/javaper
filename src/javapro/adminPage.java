@@ -46,7 +46,8 @@ public class adminPage extends JFrame implements ActionListener{
 
         if(e.getSource() == salaryButton1)
         {
-//            frame.dispose();//让父窗口消失
+            new WageMagement().create();
+           frame.dispose();//让父窗口消失
 
         }
         if (e.getSource()==employeeButton2)

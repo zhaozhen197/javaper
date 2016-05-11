@@ -19,6 +19,7 @@ public class HomePage extends JFrame implements ActionListener {
     JLabel a1 = new JLabel(im);
 
 
+
     void Create() {
         JPanel pcontentPane = (JPanel) frame.getContentPane();
         pcontentPane.add(a1);
@@ -35,7 +36,6 @@ public class HomePage extends JFrame implements ActionListener {
         frame.setSize(new Dimension(600,350));//设置边框面板的大小
         frame.setVisible(true);
     }
-
 
 
     public void actionPerformed(ActionEvent e) {

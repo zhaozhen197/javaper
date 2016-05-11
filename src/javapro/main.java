@@ -6,7 +6,6 @@ package javapro;
 public class main {
     public static void main(String[] arg0)
     {
-        HomePage dome = new HomePage();
-        dome.Create();
+         new HomePage().Create();
     }
 }
