@@ -53,7 +53,7 @@ public class secondPage extends JFrame implements ActionListener{
 
             if(e.getSource()==logonButton1)
             {
-               new adminLogin();
+               new login();
                 frame.dispose();//让父窗口消失
 
             }

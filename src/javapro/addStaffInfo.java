@@ -3,6 +3,9 @@ package javapro;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by ZZ on 2016/5/11.
@@ -13,9 +16,12 @@ public class addStaffInfo extends JFrame implements ActionListener {
     private JLabel sex_lab;
     private JLabel level_lab;
     private ButtonGroup bg = new ButtonGroup();
-    public Object[] level={"第一级","第二级","第三级","第四级","第五级","第六级","第七级"};
+    public String[] level={"第一级","第二级","第三级","第四级","第五级","第六级","第七级"};
 
 
+
+    private JLabel departmentLab;
+    private JTextField departmentJtf;
     private JComboBox levelJCB;
     private JLabel explain;
     private JLabel baseSalaryLbl;
@@ -28,7 +34,25 @@ public class addStaffInfo extends JFrame implements ActionListener {
     private JTextField contactJtf;
     private JButton add;
     private JButton cancel;
+    public JLabel getDepartmentLab() {
+        if(departmentLab == null)
+        {
+            departmentLab = new JLabel();
+            departmentLab.setText("部门");
+            departmentLab.setBounds(15,131,41,20);
+        }
+        return departmentLab;
+    }
 
+    public JTextField getDepartmentJtf() {
+        if (departmentJtf == null)
+        {
+            departmentJtf = new JTextField();
+            departmentJtf.setText("");
+            departmentJtf.setBounds(75,131,178,22);
+        }
+        return departmentJtf;
+    }
     public JComboBox getLevelJCB() {
         if(levelJCB == null)
         {
@@ -84,7 +108,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             explain = new JLabel();
             explain.setText("用户信息添加");
-            explain.setBounds(100,190,100,20);
+            explain.setBounds(100,220,100,20);
 
         }
         return explain;
@@ -95,7 +119,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             baseSalaryLbl = new JLabel();
             baseSalaryLbl .setText("基本工资");
-            baseSalaryLbl .setBounds(15,131,60,20);
+            baseSalaryLbl .setBounds(15,161,60,20);
 
         }
         return baseSalaryLbl;
@@ -106,7 +130,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             contactLbl = new JLabel();
             contactLbl .setText("联系方式");
-            contactLbl.setBounds(15,161,60,20);
+            contactLbl.setBounds(15,191,60,20);
         }
         return contactLbl;
     }
@@ -158,7 +182,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             baseSalaryJtf = new JTextField();
             baseSalaryJtf.setText("");
-            baseSalaryJtf.setBounds(75,131,178,22);
+            baseSalaryJtf.setBounds(75,161,178,22);
         }
         return baseSalaryJtf;
     }
@@ -168,7 +192,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             contactJtf = new JTextField();
             contactJtf.setText("");
-            contactJtf.setBounds(75,161,178,20);
+            contactJtf.setBounds(75,191,178,20);
         }
         return contactJtf;
     }
@@ -178,7 +202,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             add = new JButton();
             add.setText("添加");
-            add.setBounds(75,220,61,20);
+            add.setBounds(75,250,61,20);
             add.addActionListener(this);
         }
         return add;
@@ -189,7 +213,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         {
             cancel = new JButton();
             cancel.setText("取消");
-            cancel.setBounds(155,220,61,20);
+            cancel.setBounds(155,250,61,20);
             cancel.addActionListener(this);
         }
         return cancel;
@@ -204,6 +228,8 @@ public class addStaffInfo extends JFrame implements ActionListener {
         this.add(getSex_lab());
         this.add(getMan_JRB());
         this.add(getWoman_JRB());
+        this.add(getDepartmentJtf());
+        this.add(getDepartmentLab());
         this.add(getExplain());
         this.add(getCancel());
         this.add(getAdd());
@@ -213,7 +239,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         this.add(getLevelJCB());
         this.add(getBaseSalaryLbl());
         this.add(getLevel_lab());
-        this.setSize(316,320);
+        this.setSize(316,370);
         this.setVisible(true);
 
     }
@@ -222,7 +248,52 @@ public class addStaffInfo extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == getAdd())
         {
+            if(getNumJF().getText()!=null)
+            {
+                /**
+                 * 获取文本框中的内容
+                 */
+                String num = getNumJF().getText();
+                String name = getName_jf().getText();
+                String level =(String) getLevelJCB().getSelectedItem();
+                String department  =getDepartmentJtf().getText();
+                float basesalary  =Float.parseFloat( getBaseSalaryJtf().getText());
+                String contact = getContactJtf().getText();
+                Connection conn = null;
+                Statement stmt = null;
+                String sql;//sql语句
 
+                try {
+                    conn = (new mysqlConnection()).mysqlconnecion();//声明一个数据库连接的对象
+                } catch (Exception e1) {
+
+                    e1.printStackTrace();
+                }
+
+                if(getMan_JRB().isSelected()) {
+                    sql = "INSERT INTO staffinfo(id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '男','" + level + "','" + department + "','" + basesalary + "','" + contact + "')";
+
+                }else {
+
+                    sql = "INSERT INTO staffinfo(id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '女','" + level + "','" + department + "','" + basesalary + "','" + contact + "')";
+                }
+
+                try {
+                    stmt = conn.createStatement();
+                    stmt.executeUpdate(sql);
+                    explain.setText("添加成功");
+                    conn.close();
+                    stmt.close();
+
+                } catch (SQLException e2) {
+                    e2.printStackTrace();
+                }
+
+
+            }
+            else {
+                explain.setText("用户名为空，请输入！");
+            }
         }
     }
     public static void main(String[] ar)

@@ -225,6 +225,10 @@ public class adminRegister extends JFrame implements ActionListener {
             System.exit(1);
         }
         }
+    public static void main(String[] e)
+    {
+        new adminRegister();
+    }
     }
 
 
