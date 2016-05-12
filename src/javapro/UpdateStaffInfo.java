@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by ZZ on 2016/5/11.
+ * Created by ZZ on 2016/5/12.
  */
-public class addStaffInfo extends JFrame implements ActionListener {
+public class UpdateStaffInfo extends JFrame implements ActionListener {
     private JLabel name_lab;
     private JLabel num_lab;
     private JLabel sex_lab;
@@ -201,7 +201,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         if(add == null)
         {
             add = new JButton();
-            add.setText("添加");
+            add.setText("修改");
             add.setBounds(75,250,61,20);
             add.addActionListener(this);
         }
@@ -243,8 +243,13 @@ public class addStaffInfo extends JFrame implements ActionListener {
         this.setVisible(true);
 
     }
-    @Override
 
+    public static void main(String [] a)
+    {
+        new  UpdateStaffInfo().creat();
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == getAdd())
         {
@@ -271,17 +276,17 @@ public class addStaffInfo extends JFrame implements ActionListener {
                 }
 
                 if(getMan_JRB().isSelected()) {
-                    sql = "INSERT INTO staffinfo(id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '男','" + level + "','" + department + "','" + basesalary + "','" + contact + "')";
+                    sql = "UPDATE staffinfo SET (id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '男','" + level + "','" + department + "','" + basesalary + "','" + contact + "') WHERE id="+num;
 
                 }else {
 
-                    sql = "INSERT INTO staffinfo(id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '女','" + level + "','" + department + "','" + basesalary + "','" + contact + "')";
+                    sql = "UPDATE staffinfo SET (id,name,sex,stafflevel,department,basesalary,adress)" + "VALUES('" + num + "','" + name + "', '女','" + level + "','" + department + "','" + basesalary + "','" + contact + "')WHERE id="+num;
                 }
 
                 try {
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql);
-                    explain.setText("添加成功");
+                    explain.setText("修改成功");
                     conn.close();
                     stmt.close();
 
@@ -298,17 +303,12 @@ public class addStaffInfo extends JFrame implements ActionListener {
         if(e.getSource() == getCancel())
         {
 
-            new adminPage().create();
+            new staffInfoMangment().create();
             this.dispose();
         }
     }
 
 
-    public addStaffInfo()
-    {
 
-
-           this.creat();
     }
 
-}

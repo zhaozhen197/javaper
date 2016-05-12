@@ -222,7 +222,8 @@ public class adminRegister extends JFrame implements ActionListener {
             }
         if(e.getSource()==getCancel())
         {
-            System.exit(1);
+            this.dispose();
+            new adminPage().create();
         }
         }
     public static void main(String[] e)

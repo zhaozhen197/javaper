@@ -254,6 +254,11 @@ public class login extends JFrame implements ActionListener{
 				}
 			}
 		}
+        if(e.getSource() == getCancel())
+        {
+
+            System.exit(1);
+        }
 	}
 
 

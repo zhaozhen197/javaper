@@ -52,7 +52,8 @@ public class adminPage extends JFrame implements ActionListener{
         }
         if (e.getSource()==employeeButton2)
         {
-
+            new addStaffInfo();
+            frame.dispose();
         }
         if(e.getSource()==userAddButton3)
         {

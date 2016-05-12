@@ -27,9 +27,10 @@ public class WageMagement extends JFrame implements ActionListener {
     JButton b3 = new JButton("删除");
     JButton b4 = new JButton("查询");
     JButton b5 = new JButton("查询所有");
+    JButton b6 = new JButton("返回");
 
     void create() {
-        String[] cloum = { "职工号", "姓名", "月基本工资","工作提成","将金","总计"};//表格标题
+        String[] cloum = { "职工号", "姓名", "","工作提成","将金","总计"};//表格标题
 
         Object[][] row = new Object[50][6];
         JTable table = new JTable(row, cloum);
@@ -45,6 +46,7 @@ public class WageMagement extends JFrame implements ActionListener {
         p1.add(b3);
         p1.add(b4);
         p1.add(b5);
+        p1.add(b6);
         JPanel p2 = new JPanel();
         p2.setBackground(Color.cyan);
         p2.add(scrollpane);
@@ -58,11 +60,18 @@ public class WageMagement extends JFrame implements ActionListener {
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+        b6.addActionListener(this);
         add(splitpane);
         setBounds(200, 100, 500, 600);
         setResizable(true);// 可以调整界面大小
         setVisible(true);
     }
+
+    /**
+     * 生成表格
+     *
+     * @param SI
+     */
     public  void receive(salaryinformation SI)
     {
         String [] col = new String[]{"职工号", "姓名", "月基本工资", "工作提成","津贴", "总计"};//表格标题
@@ -84,6 +93,7 @@ public class WageMagement extends JFrame implements ActionListener {
         p1.add(b3);
         p1.add(b4);
         p1.add(b5);
+        p1.add(b6);
         JPanel p2 = new JPanel();
         p2.setBackground(Color.cyan);
         p2.add(scrollpane);
@@ -97,6 +107,7 @@ public class WageMagement extends JFrame implements ActionListener {
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+        b6.addActionListener(this);
         add(splitpane);
         setBounds(200, 100, 500, 600);
         setResizable(true);// 可以调整界面大小
@@ -130,6 +141,7 @@ public class WageMagement extends JFrame implements ActionListener {
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+        b6.addActionListener(this);
         add(splitpane);
         setBounds(200, 100, 500, 600);
         setResizable(true);// 可以调整界面大小
@@ -152,6 +164,7 @@ public class WageMagement extends JFrame implements ActionListener {
         p1.add(b3);
         p1.add(b4);
         p1.add(b5);
+        p1.add(b6);
         JPanel p2 = new JPanel();
         p2.setBackground(Color.cyan);
         p2.add(scrollpane);
@@ -165,6 +178,7 @@ public class WageMagement extends JFrame implements ActionListener {
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+        b6.addActionListener(this);
         add(splitpane);
         setBounds(200, 100, 500, 600);
         setResizable(true);// 可以调整界面大小
@@ -177,18 +191,26 @@ public class WageMagement extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (b1.equals(e.getSource())) { // 录入
             new addWage();
+            this.dispose();
         }
         if (b2.equals(e.getSource())) {// 修改
             new updateSalary();
+            this.dispose();
         }
 
         if (b3.equals(e.getSource())) {// 删除
             new deleteWage();
 
+
         }
         if(b4.equals(e.getSource()))
         {
             new querysalary();
+            this.dispose();
+        }
+        if(b6.equals(e.getSource()))
+        {
+            new adminPage().create();
             this.dispose();
         }
         if(b5.equals(e.getSource()))

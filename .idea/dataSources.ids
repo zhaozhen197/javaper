@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - Javaper@localhost" uuid="ad3a1b25-f37d-4626-b86d-305387c6157d">
+    <database-info product="MySQL" version="5.6.21-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.4">
+      <schema id="1" name="javaper"/>
+      <table id="2" parent="1" name="administrators"/>
+      <table id="3" parent="1" name="salary"/>
+      <table id="4" parent="1" name="staffinfo"/>
+      <column id="5" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11) unsigned</data-type>
+      </column>
+      <column id="6" parent="2" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="7" parent="2" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="8" parent="2" name="stand">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <key id="9" parent="2" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="10" parent="3" name="id">
+        <mandatory>1</mandatory>
+        <data-type>varchar(10)</data-type>
+      </column>
+      <column id="11" parent="3" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="12" parent="3" name="basesalary">
+        <data-type>float(255,2)</data-type>
+      </column>
+      <column id="13" parent="3" name="jobsalary">
+        <data-type>float(255,2)</data-type>
+      </column>
+      <column id="14" parent="3" name="welfare">
+        <data-type>float(255,2)</data-type>
+      </column>
+      <column id="15" parent="3" name="total">
+        <data-type>float(255,2)</data-type>
+      </column>
+      <key id="16" parent="3" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="17" parent="4" name="id">
+        <comment>员工的工号</comment>
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="18" parent="4" name="name">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="19" parent="4" name="sex">
+        <data-type>varchar(5)</data-type>
+      </column>
+      <column id="20" parent="4" name="stafflevel">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="21" parent="4" name="department">
+        <comment>部门</comment>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="22" parent="4" name="basesalary">
+        <data-type>float(10,2)</data-type>
+      </column>
+      <column id="23" parent="4" name="adress">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <key id="24" parent="4" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>
