@@ -102,6 +102,39 @@ public class WageMagement extends JFrame implements ActionListener {
         setResizable(true);// 可以调整界面大小
         setVisible(true);
     }
+    public  void staff(salaryinformation SI)
+    {
+        this.setTitle("员工的工资信息");
+        String [] col = new String[]{"职工号", "姓名", "月基本工资", "工作提成","津贴", "总计"};//表格标题
+        Object[][] a ={
+                {SI.getNum(), SI.getName(), SI.getBasesalary(), SI.getJobsalary(), SI.getWelfare(), SI.getTotal()}
+        };
+
+        JTable table = new JTable(a,col);
+
+        JScrollPane scrollpane = new JScrollPane(table);//添加滚动条
+        JSplitPane splitpane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JPanel p = (JPanel)getContentPane();
+        p.setLayout(new FlowLayout());
+        p.add(scrollpane);
+        p.add(splitpane);
+
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.cyan);
+        p2.add(scrollpane);
+        splitpane.add(p2, splitpane.BOTTOM);
+        splitpane.setDividerLocation(50);
+        p.setBackground(Color.CYAN);
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        b3.addActionListener(this);
+        b4.addActionListener(this);
+        b5.addActionListener(this);
+        add(splitpane);
+        setBounds(200, 100, 500, 600);
+        setResizable(true);// 可以调整界面大小
+        setVisible(true);
+    }
     public  void queryAll(DefaultTableModel tablemodel )
     {
 

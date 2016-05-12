@@ -21,8 +21,9 @@ public class login extends JFrame implements ActionListener{
 	private JButton cancel;
 
 	private ButtonGroup bg = new ButtonGroup();
+    static String flag;
 
-	private void initComponents() {
+	private String initComponents() {
 		this.setTitle("用户登陆");
 		setLayout(null);
 		add(getName_lab());
@@ -39,6 +40,7 @@ public class login extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
+        return flag;
 	}
 
 	private JLabel getExplain() {
@@ -136,7 +138,7 @@ public class login extends JFrame implements ActionListener{
 	private JLabel getName_lab() {
 		if (name_lab == null) {
 			name_lab = new JLabel();
-			name_lab.setText("姓名");
+			name_lab.setText("工号");
 			name_lab.setBounds(15, 41, 41, 20);
 		}
 		return name_lab;
@@ -149,7 +151,8 @@ public class login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getLogin())// 判断触发源是否是按钮1
 		{
-
+			if(getMadmin_JRB().isSelected())
+			{
 			String name = name_jf.getText();
 			String pass = new String(getPassword_jtf() .getPassword());
 			String sql = "SELECT username,password FROM  administrators WHERE username='"+name+"'and stand=1";
@@ -167,18 +170,6 @@ public class login extends JFrame implements ActionListener{
 				// TODO Auto-generated catch block
 				e4.printStackTrace();
 			}
-//					try {
-//						pstmt.setString(1,"%"+name+"%");//设置第一个?
-//					} catch (SQLException e3) {
-//						// TODO Auto-generated catch block
-//						e3.printStackTrace();
-//					}
-//					try {
-//						pstmt.setString(2,"%" +pass+ "%"); //设置第二个?
-//					} catch (SQLException e2) {
-//						// TODO Auto-generated catch block
-//						e2.printStackTrace();
-//					}
 			ResultSet rs = null;
 			try {rs = pstmt.executeQuery();
 			} catch (SQLException e1) {
@@ -211,6 +202,57 @@ public class login extends JFrame implements ActionListener{
 				e2.printStackTrace();
 			}
 
+		}
+			else {
+				String name = name_jf.getText();
+                flag = name;
+				String pass = new String(getPassword_jtf() .getPassword());
+				String sql = "SELECT username,password FROM  administrators WHERE username='"+name+"'and stand=0";
+				Connection  conn= null;
+				try {
+					conn= (new mysqlConnection()).mysqlconnecion();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				PreparedStatement pstmt = null;
+				try {
+					pstmt = conn.prepareStatement(sql);
+				} catch (SQLException e4) {
+					// TODO Auto-generated catch block
+					e4.printStackTrace();
+				}
+				ResultSet rs = null;
+				try {
+                    rs = pstmt.executeQuery();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				try {
+					while(rs.next()){
+						String na =rs.getString(1);
+						String pa =rs.getString(2);
+						if(name.equals(na)&&pass.equals(pa))
+						{
+							explain.setText("登陆成功!");
+							conn.close();
+							pstmt.close();
+                            new staffPage().create(flag);
+                            this.dispose();
+							break;
+						}else
+						{
+							explain.setText("用户名不存在或密码错误!");
+						}
+					}
+
+				} catch (SQLException e2) {
+
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+			}
 		}
 	}
 

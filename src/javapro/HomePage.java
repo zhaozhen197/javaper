@@ -40,7 +40,7 @@ public class HomePage extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()==button1) {
-            (new secondPage()).create();
+            new login();
             frame.dispose();//释放由此 Window、其子组件及其拥有的所有子组件所使用的所有本机屏幕资源
         }
         if (button2.equals(e.getSource())) {// 退出
