@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by ZZ on 2016/5/12.
@@ -22,7 +26,6 @@ public class staffInfoMangment extends JFrame implements ActionListener {
     JButton b6 = new JButton("返回");
 
     public staffInfoMangment() throws HeadlessException {
-        this.create();
         this.addWindowListener( new WindowAdapter() {
 
 
@@ -166,6 +169,76 @@ public class staffInfoMangment extends JFrame implements ActionListener {
             new deleteStaffInfo();
             this.dispose();
         }
+        if(b4.equals(e.getSource()))
+        {
+            new QuarySttaffInfo().quaryWage();
+            this.dispose();
+        }
+        if(b6.equals(e.getSource()))
+        {
+            this.dispose();
+            new adminPage().create();
+        }
+        if(b5.equals(e.getSource()))
+        {
+            Connection conn = null;
+           StaffInfo SI = new StaffInfo();
+            String[] cloum = {"职工号", "姓名", "性别", "工作等级", "部门", "基础工资", "联系方式"};//表格标题
+
+            DefaultTableModel tablemodel = new DefaultTableModel(null,cloum);
+
+            try {
+                conn = new mysqlConnection().mysqlconnecion();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            String sql = " SELECT id,name,sex ,stafflevel,department,basesalary,adress FROM staffinfo";
+            Statement stmt = null;
+            ResultSet rs = null;
+            try {
+                stmt = conn.createStatement();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                rs = stmt.executeQuery(sql);
+
+
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            try {
+                while (rs.next()) {
+
+                    SI.setNum(rs.getString(1));
+                    SI.setName(rs.getString(2));
+                    SI.setSex(rs.getString(3));
+                    SI.setLevel(rs.getString(4));
+                    SI.setDepartment(rs.getString(5));
+                    SI.setBaseSalary(rs.getFloat(6));
+                    SI.setContact(rs.getString(7));
+                    Object[] a ={
+                            SI.getNum(), SI.getName(), SI.getSex(), SI.getLevel(), SI.getDepartment(), SI.getBaseSalary(),SI.getContact()
+                    };
+                    tablemodel.addRow(a);
+
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+            this.dispose();
+            new staffInfoMangment().queryAll(tablemodel);
+            try {
+                rs.close();
+                conn.close();
+                stmt.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+
 
 
     }

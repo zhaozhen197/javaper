@@ -1,20 +1,23 @@
 package javapro;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
- * Created by ZZ on 2016/5/8.
+ * Created by ZZ on 2016/5/13.
  */
-public class querysalary extends JFrame implements ActionListener {
-private JLabel num_lab;
+public class QuarySttaffInfo extends JFrame implements ActionListener {
+    private JLabel num_lab;
     private JTextField num_jtf;
     private JLabel warn_lab;
     private JButton survey_jb;
     private JButton back_jb;
-
-
     public void quaryWage()
     {
         this.setLayout(null);
@@ -28,10 +31,6 @@ private JLabel num_lab;
         this.setVisible(true);
         this.setResizable(false);
     }
-public querysalary()
-{
-    quaryWage();
-}
 
     public JLabel getNum_lab() {
         if(num_lab == null)
@@ -87,16 +86,17 @@ public querysalary()
         return back_jb;
     }
 
-
-
-
+    public static void main(String[]art)
+    {
+        new QuarySttaffInfo().quaryWage();
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==getSurvey_jb()) {
             if (num_jtf.getText() != null) {
                 Connection conn = null;
                 String num;
-                salaryinformation SI = new salaryinformation();
+                StaffInfo SI = new StaffInfo();
 
                 try {
                     conn = new mysqlConnection().mysqlconnecion();
@@ -104,7 +104,7 @@ public querysalary()
                     e1.printStackTrace();
                 }
                 num = num_jtf.getText();
-                String sql = " SELECT id,name,basesalary ,jobsalary,welfare,total FROM salary WHERE id =" + num;
+                String sql = " SELECT id,name,sex ,stafflevel,department,basesalary,adress FROM staffinfo WHERE id =" + num;
                 Statement stmt = null;
                 ResultSet rs = null;
                 try {
@@ -125,16 +125,17 @@ public querysalary()
 
                         SI.setNum(rs.getString(1));
                         SI.setName(rs.getString(2));
-                        SI.setBasesalary(rs.getFloat(3));
-                        SI.setJobsalary(rs.getFloat(4));
-                        SI.setWelfare(rs.getFloat(5));
-                        SI.setTotal(rs.getFloat(6));
+                        SI.setSex(rs.getString(3));
+                        SI.setLevel(rs.getString(4));
+                        SI.setDepartment(rs.getString(5));
+                        SI.setBaseSalary(rs.getFloat(6));
+                        SI.setContact(rs.getString(7));
 
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-                new WageMagement().receive(SI);
+                new staffInfoMangment().receive(SI);
                 try {
                     rs.close();
                     conn.close();
@@ -148,10 +149,11 @@ public querysalary()
                 warn_lab.setText("用户名为空");
             }
         }
-
-    }
-    public  static  void  main(String [] arg)
-    {
-        new querysalary();
-    }
+if(e.getSource().equals(getBack_jb()))
+{
+    this.dispose();
+    new staffInfoMangment().create();
 }
+    }
+    }
+

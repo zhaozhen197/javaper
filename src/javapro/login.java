@@ -238,7 +238,7 @@ public class login extends JFrame implements ActionListener{
 							explain.setText("登陆成功!");
 							conn.close();
 							pstmt.close();
-                            new staffPage().create(flag);
+                            new staffInfoMangment().create();
                             this.dispose();
 							break;
 						}else
