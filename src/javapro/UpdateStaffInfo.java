@@ -1,6 +1,7 @@
 package javapro;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -246,7 +247,11 @@ public class UpdateStaffInfo extends JFrame implements ActionListener {
 
     public static void main(String [] a)
     {
-        new  UpdateStaffInfo().creat();
+        new  UpdateStaffInfo();
+    }
+
+    public UpdateStaffInfo() throws HeadlessException {
+        this.creat();
     }
 
     @Override
@@ -299,13 +304,14 @@ public class UpdateStaffInfo extends JFrame implements ActionListener {
             else {
                 explain.setText("用户名为空，请输入！");
             }
+
         }
         if(e.getSource() == getCancel())
         {
-
-            new staffInfoMangment().create();
+            new staffInfoMangment();
             this.dispose();
         }
+
     }
 
 

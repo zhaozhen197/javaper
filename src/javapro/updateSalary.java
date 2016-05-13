@@ -3,6 +3,8 @@ package javapro;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.*;
 /**
  * Created by ZZ on 2016/5/8.
@@ -169,6 +171,15 @@ public class updateSalary extends JFrame implements ActionListener{
 
     public updateSalary() {
         initComponents();
+        this.addWindowListener( new WindowAdapter() {
+
+
+            public void windowClosing(WindowEvent arg0){
+                System.exit(1);
+            }
+
+        });
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -219,6 +230,7 @@ public class updateSalary extends JFrame implements ActionListener{
         }
         if(e.getSource()==getCancel())
         {
+            new WageMagement().create();
             this.dispose();
         }
     }

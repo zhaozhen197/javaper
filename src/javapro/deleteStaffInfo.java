@@ -1,40 +1,41 @@
 package javapro;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
+import  java.awt.event.WindowAdapter;
+
+import  java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * Created by ZZ on 2016/5/8.
- *
+ * Created by ZZ on 2016/5/13.
  */
-public class deleteWage extends JFrame implements ActionListener {
+public class deleteStaffInfo extends JFrame implements ActionListener {
     private JLabel num_lab;
     private JTextField num_jtf;
     private JLabel warn_lab;
-    private JButton survey_jb;
+    private JButton deleteJb;
     private JButton back_jb;
 
 
-    private void DeleteWage()
+    private void DeleteInfo()
     {
         this.setLayout(null);
-        this .setTitle("查询");
+        this .setTitle("删除");
         this.add(getNum_jtf());
         this.add (getNum_lab());
         this.add(getWarn_lab());
-        this.add(getSurvey_jb());
+        this.add(getDeleteJb());
         this.add(getBack_jb());
         setBounds(500,200,316,320);
         this.setVisible(true);
         this.setResizable(false);
     }
-public deleteWage()
-{
-    DeleteWage();
-}
-
     public JLabel getNum_lab() {
         if(num_lab == null)
         {
@@ -59,23 +60,23 @@ public deleteWage()
         if(warn_lab == null)
         {
             warn_lab = new JLabel();
-            warn_lab.setText("请输入所要查询的工号");
+            warn_lab.setText("请输入所要删除的工号");
             warn_lab.setForeground(Color.RED);
             warn_lab.setBounds(82,132,150,31);
         }
         return warn_lab;
     }
 
-    public JButton getSurvey_jb() {
-        if(survey_jb == null)
+    public JButton getDeleteJb() {
+        if(deleteJb == null)
         {
-            survey_jb = new JButton();
-            survey_jb.setText("查询");
+            deleteJb = new JButton();
+            deleteJb.setText("删除");
 
-            survey_jb.addActionListener(this);
-            survey_jb.setBounds(62, 162, 80, 32);
+            deleteJb.addActionListener(this);
+            deleteJb.setBounds(62, 162, 80, 32);
         }
-        return survey_jb;
+        return deleteJb;
     }
 
     public JButton getBack_jb() {
@@ -89,12 +90,13 @@ public deleteWage()
         return back_jb;
     }
 
-
-
+    public deleteStaffInfo() throws HeadlessException {
+        this.DeleteInfo();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==getSurvey_jb()) {
+        if(e.getSource()==getDeleteJb()) {
             if (num_jtf.getText() != null) {
                 Connection conn = null;
                 String num;
@@ -105,7 +107,7 @@ public deleteWage()
                     e1.printStackTrace();
                 }
                 num = num_jtf.getText();
-                String sql = "DELETE FROM salary WHERE id =" + num;
+                String sql = "DELETE FROM staffinfo WHERE id =" + num;
                 Statement stmt = null;
                 ResultSet rs = null;
                 try {
@@ -114,43 +116,28 @@ public deleteWage()
                     e1.printStackTrace();
                 }
                 try {
-//                    rs = stmt.executeUpdate(sql);
                     stmt.executeUpdate(sql);
                     warn_lab.setText("删除成功");
                     this.dispose();
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-/*                try {
-                    while (rs.next()) {
-                        salaryinformation SI = new salaryinformation();
-                        SI.setNum(rs.getString("id"));
-                        SI.setName(rs.getString("name"));
-                        SI.setBasesalary(rs.getFloat("basesalary"));
-                        SI.setJobsalary(rs.getFloat("jobsalary"));
-                        SI.setWelfare(rs.getFloat("welfare"));
-                        SI.setTotal(rs.getFloat("total"));
-                        Object[][] a ={
-                                {SI.getNum(), SI.getName(), SI.getBasesalary(), SI.getJobsalary(), SI.getWelfare(), SI.getTotal()}
-                        };
-                    }
-
-                    String[] cloum = {"职工号", "姓名", "月基本工资", "工作提成", "年底奖金", "津贴", "总计"};//表格标题
-                    new WageMagement().create();
-
-                    this.dispose();
-
-                } catch (SQLException e1) {
-                    e1.printStackTrace();
-                }*/
             } else {
                 warn_lab.setText("用户名为空");
             }
         }
+        if(e.getSource().equals(getBack_jb())){
+            new staffInfoMangment();
+            this.dispose();
 
+        }
     }
-    public  static  void  main(String [] arg)
+   public  void windowClosing(WindowEvent arg0)
+   {
+       System.exit(1);
+   }
+    public static void main(String [] m)
     {
-    new deleteWage();
+        new deleteStaffInfo();
     }
 }

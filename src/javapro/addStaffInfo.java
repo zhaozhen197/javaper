@@ -298,7 +298,7 @@ public class addStaffInfo extends JFrame implements ActionListener {
         if(e.getSource() == getCancel())
         {
 
-            new adminPage().create();
+            new staffInfoMangment();
             this.dispose();
         }
     }
