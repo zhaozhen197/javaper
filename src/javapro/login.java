@@ -233,13 +233,60 @@ public class login extends JFrame implements ActionListener{
 					while(rs.next()){
 						String na =rs.getString(1);
 						String pa =rs.getString(2);
+
 						if(name.equals(na)&&pass.equals(pa))
 						{
 							explain.setText("登陆成功!");
+
+                            String num;
+                            salaryinformation SI = new salaryinformation();
+
+                            try {
+                                conn = new mysqlConnection().mysqlconnecion();
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                            String Sql = " SELECT id,name,basesalary ,jobsalary,welfare,total FROM salary WHERE id =" +na;
+                            Statement stmt = null;
+                            try {
+                                stmt = conn.createStatement();
+                            } catch (SQLException e1) {
+                                e1.printStackTrace();
+                            }
+                            try {
+                                rs = stmt.executeQuery(Sql);
+
+
+                            } catch (SQLException e1) {
+                                explain.setText("该员工不存在");
+                                e1.printStackTrace();
+                            }
+                            try {
+                                while (rs.next()) {
+
+                                    SI.setNum(rs.getString(1));
+                                    SI.setName(rs.getString(2));
+                                    SI.setBasesalary(rs.getFloat(3));
+                                    SI.setJobsalary(rs.getFloat(4));
+                                    SI.setWelfare(rs.getFloat(5));
+                                    SI.setTotal(rs.getFloat(6));
+
+                                }
+                            } catch (SQLException e1) {
+                                e1.printStackTrace();
+                            }
+                            new WageMagement().receive(SI);
+                            try {
+                                rs.close();
+                                conn.close();
+                                stmt.close();
+                            } catch (SQLException e1) {
+                                e1.printStackTrace();
+                            }
+
+                            this.dispose();
 							conn.close();
 							pstmt.close();
-                            new staffInfoMangment().create();
-                            this.dispose();
 							break;
 						}else
 						{

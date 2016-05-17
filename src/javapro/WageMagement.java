@@ -88,17 +88,9 @@ public class WageMagement extends JFrame implements ActionListener {
         p.add(scrollpane);
         p.add(splitpane);
         JPanel p1 = new JPanel();
-        p1.add(b1);
-        p1.add(b2);
-        p1.add(b3);
-        p1.add(b4);
-        p1.add(b5);
-        p1.add(b6);
         JPanel p2 = new JPanel();
         p2.setBackground(Color.cyan);
         p2.add(scrollpane);
-
-        splitpane.add(p1, splitpane.TOP);
         splitpane.add(p2, splitpane.BOTTOM);
         splitpane.setDividerLocation(50);
         p.setBackground(Color.CYAN);
