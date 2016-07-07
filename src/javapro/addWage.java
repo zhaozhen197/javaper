@@ -203,6 +203,7 @@ private  JLabel getWarn()
                         stmt = conn.createStatement();
                         stmt.executeUpdate(sql);
                         warn.setText("添加成功");
+                        new WageMagement().create();
                         conn.close();
                         stmt.close();
 
@@ -217,6 +218,7 @@ private  JLabel getWarn()
         }
         if(e.getSource()==getCancel())
         {
+            new WageMagement().create();
             this.dispose();
         }
     }

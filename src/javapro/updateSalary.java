@@ -215,6 +215,7 @@ public class updateSalary extends JFrame implements ActionListener{
                     stmt = conn.createStatement();
                     stmt.executeUpdate(sql);
                     warn.setText("修改成功");
+                    new WageMagement().create();
                     conn.close();
                     stmt.close();
                     this.dispose();

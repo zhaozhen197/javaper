@@ -192,7 +192,7 @@ public class WageMagement extends JFrame implements ActionListener {
 
         if (b3.equals(e.getSource())) {// 删除
             new deleteWage();
-
+            this.dispose();
 
         }
         if(b4.equals(e.getSource()))

@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import org.junit.Test;
 
 /**
  * Created by ZZ on 2016/5/3.
@@ -21,7 +20,7 @@ public class HomePage extends JFrame implements ActionListener {
 
 
 
-    @Test
+
     public void Create() {
         JPanel pcontentPane = (JPanel) frame.getContentPane();
         pcontentPane.add(a1);

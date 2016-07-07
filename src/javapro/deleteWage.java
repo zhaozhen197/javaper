@@ -147,6 +147,10 @@ public deleteWage()
                 warn_lab.setText("用户名为空");
             }
         }
+        else {
+            new WageMagement().create();
+            this.dispose();
+        }
 
     }
     public  static  void  main(String [] arg)

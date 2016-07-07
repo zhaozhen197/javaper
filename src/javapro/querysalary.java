@@ -148,6 +148,10 @@ public querysalary()
                 warn_lab.setText("用户名为空");
             }
         }
+        else {
+            this.dispose();
+            new  WageMagement().create();
+        }
 
     }
     public  static  void  main(String [] arg)
